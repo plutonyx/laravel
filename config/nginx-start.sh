@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service cron start
+/usr/sbin/cron
 service nginx start
 tail -f /var/log/nginx/access.log &
 tail -f /var/log/nginx/error.log &
