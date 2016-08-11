@@ -47,7 +47,8 @@ RUN apt-get install -y \
 	php5-xcache \
 	php5-mcrypt \
 	php5-gd \
-	vim
+	vim \
+	cron
 
 # Configure PHP-FPM
 RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
