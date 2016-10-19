@@ -29,6 +29,7 @@ RUN apt-get install -y \
 	php-fpm \
 	php-mcrypt \
 	php-mysql \
+	php-mbstring \
 	vim \
 	cron
 
@@ -46,7 +47,8 @@ RUN sed -i "s/\;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
 	# sed -i '/^;catch_workers_output/ccatch_workers_output = yes' /etc/php5/fpm/pool.d/www.conf && \
 	# sed -i '/^;env\[TEMP\] = .*/aenv[DB_PORT_3306_TCP_ADDR] = $DB_PORT_3306_TCP_ADDR' /etc/php5/fpm/pool.d/www.conf
 
-# RUN php5enmod mcrypt
+RUN phpenmod mcrypt
+RUN phpenmod mbstring
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
@@ -59,7 +61,7 @@ RUN mkdir -p /data/
 RUN ls /data
 VOLUME ["/data"]
 
-COPY config/php.ini /etc/php5/fpm/php.ini
+# COPY config/php.ini /etc/php5/fpm/php.ini
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # PORTS
