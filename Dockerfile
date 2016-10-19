@@ -12,8 +12,9 @@ RUN ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 
 # Apply Nginx configuration
 # ADD config/nginx.conf /opt/etc/nginx.conf
-ADD config/laravel /etc/nginx/sites-available/laravel
-RUN ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/laravel && rm /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-available/default
+ADD config/laravel /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Nginx startup script
 ADD config/nginx-start.sh /opt/bin/nginx-start.sh
@@ -24,6 +25,8 @@ VOLUME ["/data"]
 
 # Install PHP-FPM and popular/laravel required extensions
 RUN apt-get install -y \
+	zip \
+	unzip \
 	curl \
 	git \
 	php-fpm \
