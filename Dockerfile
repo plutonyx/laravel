@@ -30,6 +30,21 @@ RUN apt-get install -y \
 	php-mcrypt \
 	php-mysql \
 	php-mbstring \
+	php-curl \
+	php-gd \
+	php-intl \
+	php-pear \
+	php-imagick \
+	php-imap \
+	php-memcache \
+	php-pspell \
+	php-recode \
+	php-sqlite3 \
+	php-tidy \
+	php-xmlrpc \
+	php-xsl \
+	php-mbstring \
+	php-gettext \
 	vim \
 	cron
 
