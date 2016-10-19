@@ -13,7 +13,7 @@ RUN ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
 # Apply Nginx configuration
 # ADD config/nginx.conf /opt/etc/nginx.conf
 RUN rm /etc/nginx/sites-available/default
-ADD config/laravel /etc/nginx/sites-available/default
+ADD config/default /etc/nginx/sites-available/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Nginx startup script
