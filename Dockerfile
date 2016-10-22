@@ -49,6 +49,7 @@ RUN apt-get install -y \
 	php-xsl \
 	php-mbstring \
 	php-gettext \
+	php-mongodb \
 	vim \
 	cron
 
