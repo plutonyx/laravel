@@ -50,6 +50,7 @@ RUN apt-get install -y \
 	php-mbstring \
 	php-gettext \
 	php-mongodb \
+	php-ldap \
 	vim \
 	cron
 
