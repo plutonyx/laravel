@@ -12,6 +12,13 @@ server {
     }
 
     location ~ \.php$ {
+        # requires http://wiki.nginx.org/HttpHeadersMoreModule to handle response codes that add_header ignores
+        more_set_headers "Access-Control-Allow-Origin: $http_origin";
+        more_set_headers "Access-Control-Allow-Credentials: true";
+        more_set_headers "Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS";
+        more_set_headers "Access-Control-Allow-Headers: Keep-Alive,User-Agent,If-Modified-Since,Cache-Control,Content-Type,Authorization";
+        more_set_headers "Access-Control-Max-Age: 1728000";
+
         include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/run/php/php7.0-fpm.sock;
     }

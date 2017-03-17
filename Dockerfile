@@ -83,6 +83,8 @@ VOLUME ["/data"]
 
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
+RUN apt-get install nginx-extras
+
 # PORTS
 EXPOSE 80
 EXPOSE 443
