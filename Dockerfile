@@ -24,43 +24,46 @@ RUN chmod u=rwx /opt/bin/nginx-start.sh
 RUN mkdir -p /data
 VOLUME ["/data"]
 
+RUN apt-get update -y && apt-get install -y software-properties-common python-software-properties
+RUN LC_ALL=C.UTF-8 add-apt-repository -y -u ppa:ondrej/php
+RUN apt-get update -y
+
 # Install PHP-FPM and popular/laravel required extensions
 RUN apt-get install -y \
 	zip \
 	unzip \
 	curl \
 	git \
-	php-fpm \
-	php-mcrypt \
-	php-mysql \
-	php-mbstring \
-	php-curl \
-	php-gd \
-	php-intl \
-	php-pear \
-	php-imagick \
-	php-imap \
-	php-memcache \
-	php-pspell \
-	php-recode \
-	php-sqlite3 \
-	php-tidy \
-	php-xmlrpc \
-	php-xsl \
-	php-mbstring \
-	php-gettext \
-	php-mongodb \
-	php-ldap \
+	php7.1-fpm \
+	php7.1-mcrypt \
+	php7.1-mysql \
+	php7.1-mbstring \
+	php7.1-curl \
+	php7.1-gd \
+	php7.1-intl \
+	php7.1-imagick \
+	php7.1-imap \
+	php7.1-memcache \
+	php7.1-pspell \
+	php7.1-recode \
+	php7.1-sqlite3 \
+	php7.1-tidy \
+	php7.1-xmlrpc \
+	php7.1-xsl \
+	php7.1-mbstring \
+	php7.1-gettext \
+	php7.1-mongodb \
+	php7.1-ldap \
 	vim \
 	cron
 
 # Configure PHP-FPM
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.0/fpm/php.ini
-RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.0/fpm/php.ini
+RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php/7.1/fpm/php.ini
+RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/7.1/fpm/php.ini
 # RUN echo "xdebug.max_nesting_level=500" > /etc/php5/mods-available/xdebug.ini
-	# sed -i "s/display_errors = Off/display_errors = stderr/" /etc/php/7.0/fpm/php.ini && \
-	# sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 30M/" /etc/php/7.0/fpm/php.ini && \
-	# sed -i "s/;opcache.enable=0/opcache.enable=0/" /etc/php/7.0/fpm/php.ini && \
+	# sed -i "s/display_errors = Off/display_errors = stderr/" /etc/php/7.1/fpm/php.ini && \
+	# sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 30M/" /etc/php/7.1/fpm/php.ini && \
+	# sed -i "s/;opcache.enable=0/opcache.enable=0/" /etc/php/7.1/fpm/php.ini && \
 	# sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
 	# sed -i '/^listen = /clisten = 9000' /etc/php5/fpm/pool.d/www.conf && \
 	# sed -i '/^listen.allowed_clients/c;listen.allowed_clients =' /etc/php5/fpm/pool.d/www.conf && \
