@@ -88,6 +88,7 @@ COPY config/nginx.conf /etc/nginx/nginx.conf
 
 RUN apt-get install -y nginx-extras
 
+RUN mkdir -p /run/php
 # PORTS
 EXPOSE 80
 EXPOSE 443

@@ -4,7 +4,7 @@
 service nginx start
 tail -f /var/log/nginx/access.log &
 tail -f /var/log/nginx/error.log &
-service php7.0-fpm start
+service php7.1-fpm start
 
 cd /data
 composer self-update
