@@ -17,10 +17,6 @@ RUN rm /etc/nginx/sites-enabled/default
 ADD config/default /etc/nginx/sites-available/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-# Nginx startup script
-ADD config/nginx-start.sh /opt/bin/nginx-start.sh
-RUN chmod u=rwx /opt/bin/nginx-start.sh
-
 RUN mkdir -p /data
 VOLUME ["/data"]
 
@@ -86,7 +82,17 @@ VOLUME ["/data"]
 
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
-RUN apt-get install -y nginx-extras
+RUN apt-get -o Dpkg::Options::="--force-overwrite" install -y nginx-extras openjdk-8-jdk
+RUN apt-get install -y wget
+RUN wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.tar.gz
+RUN mkdir -p /run
+RUN tar xvfz elasticsearch-6.2.2.tar.gz
+RUN mv elasticsearch-6.2.2 /run/elasticsearch
+ENV TZ=Asia/Bangkok
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN adduser --disabled-password --gecos "" elastic
+
+RUN chown -R elastic:elastic /run/elasticsearch
 
 RUN mkdir -p /run/php
 # PORTS
@@ -95,5 +101,9 @@ EXPOSE 443
 EXPOSE 9000
 
 WORKDIR /data
+
+# Nginx startup script
+ADD config/nginx-start.sh /opt/bin/nginx-start.sh
+RUN chmod u=rwx /opt/bin/nginx-start.sh
 
 ENTRYPOINT ["/opt/bin/nginx-start.sh"]
