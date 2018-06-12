@@ -116,5 +116,6 @@ RUN ln -s /usr/share/java/mysql-connector-java.jar /data-integration/lib/
 # Nginx startup script
 ADD config/nginx-start.sh /opt/bin/nginx-start.sh
 RUN chmod u=rwx /opt/bin/nginx-start.sh
+RUN usermod -d /tmp www-data
 
 ENTRYPOINT ["/opt/bin/nginx-start.sh"]
