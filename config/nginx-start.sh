@@ -12,7 +12,7 @@ php artisan cache:clear
 chmod -R 777 storage
 composer dump-autoload
 
-# while true; do sleep 1d; done
-# nginx -g daemon off;
-cd /run/elasticsearch/
-su elastic -c ./bin/elasticsearch
+while true; do sleep 1d; done
+nginx -g daemon off;
+# cd /run/elasticsearch/
+# su elastic -c ./bin/elasticsearch

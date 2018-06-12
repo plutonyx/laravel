@@ -110,6 +110,9 @@ ADD isced_clean.ktr /data-integration/
 ADD isced_excel.ktr /data-integration/
 ADD isced_fact.ktr /data-integration/
 
+RUN apt-get update -y && apt-get install -y libmysql-java
+RUN ln -s /usr/share/java/mysql-connector-java.jar /data-integration/lib/
+
 # Nginx startup script
 ADD config/nginx-start.sh /opt/bin/nginx-start.sh
 RUN chmod u=rwx /opt/bin/nginx-start.sh
