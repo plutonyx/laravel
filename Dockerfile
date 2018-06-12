@@ -102,6 +102,14 @@ EXPOSE 9000
 
 WORKDIR /data
 
+RUN apt-get update -y && apt-get install -y wget zip
+RUN cd /tmp && wget -c https://www.dropbox.com/s/bolozruih2kescw/pdi-ce-6.0.0.0-353.zip?dl=0
+RUN cd /tmp && unzip pdi-ce-6.0.0.0-353.zip?dl=0
+RUN mv /tmp/data-integration /
+ADD isced_clean.ktr /data-integration/
+ADD isced_excel.ktr /data-integration/
+ADD isced_fact.ktr /data-integration/
+
 # Nginx startup script
 ADD config/nginx-start.sh /opt/bin/nginx-start.sh
 RUN chmod u=rwx /opt/bin/nginx-start.sh
